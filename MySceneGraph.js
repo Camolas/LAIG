@@ -1422,7 +1422,44 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
+	     	this.processNode(this.nodes[this.idRoot], null, null);			// entry point for graph rendering
+}			// remove log below to avoid performance issues
+	this.log("Graph should be rendered here...");
+MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {		}
+	var textura = parTex;		
+	var material = parAsp;		
+  this.scene.pushMatrix();		
+  this.scene.multMatrix(node.transformMatrix);		
+  if (node.textureID != null) {		
+    if (node.textureID == 'clear')		
+      textura = null;		
+    else		
+      this.scene.currTexture = this.textures[node.textureID];		
+  }		
+  if (node.materialID != "null") {		
+    material = this.materials[node.materialID];		
+  }		
+  if (node.textureID != "null" && node.textureID != "clear") {		
+    textura = this.textures[node.textureID][0];		
+  }		
+  else if (node.textureID == "clear")		
+    textura = null;		
+  for (var i = 0; i < node.children.length; i++) {		
+    this.processNode(this.nodes[node.children[i]], textura, material);		
+  }		
+  for (var j = 0; j < node.leaves.length; j++) {		
+    if (material != null) {		
+        material.apply();		
+    }		
+    if (textura != null) {		
+        textura.bind();		
+    }		
+    node.leaves[j].display();		
+  }		
+  this.scene.popMatrix();		
+}
+	/*
 	// entry point for graph rendering
 	// remove log below to avoid performance issues
-	this.log("Graph should be rendered here...");
+	this.log("Graph should be rendered here...");*/
 }
