@@ -141,7 +141,7 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
-		<TRANSLATION x="0" y="0" z="4" />		
+		<TRANSLATION x="0" y="3.732" z="0" />		
 
         <DESCENDANTS>
             <LEAF  type="sphere" args="1 20 20" />    
@@ -154,7 +154,7 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
-		<TRANSLATION x="0" y="0" z="-4" />		
+		<TRANSLATION x="0" y="-3.732" z="0" />		
 
         <DESCENDANTS>
             <LEAF  type="sphere" args="1 20 20" />    
@@ -167,7 +167,7 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
-		<TRANSLATION x="4" y="0" z="0" />		
+		<TRANSLATION x="3.732" y="0" z="0" />		
 
         <DESCENDANTS>
             <LEAF  type="sphere" args="1 20 20" />    
@@ -180,7 +180,7 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
-		<TRANSLATION x="-2" y="3.464" z="0" />		
+		<TRANSLATION x="-1.866" y="0" z="3.232" />		
 
         <DESCENDANTS>
             <LEAF  type="sphere" args="1 20 20" />    
@@ -193,7 +193,7 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
-		<TRANSLATION x="-2" y="-3.464" z="0" />		
+		<TRANSLATION x="-1/866" y="0" z="-3.232" />		
 
         <DESCENDANTS>
             <LEAF  type="sphere" args="1 20 20" />    
@@ -221,11 +221,11 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="0" y="0" z="2.5" />	
+	     	<ROTATION axis="x" angle="-90" />
+		<TRANSLATION x="0" y="1.866" z="0" />	
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -235,11 +235,11 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 	
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="0" y="0" z="-2.5" />		
+	     	<ROTATION axis="x" angle="90" />
+		<TRANSLATION x="0" y="-1.866" z="0" />		
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -249,11 +249,11 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 	
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="2.5" y="0" z="0" />		
+		<ROTATION axis="y" angle="90" />
+		<TRANSLATION x="1.866" y="0" z="0" />		
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -262,12 +262,12 @@
      <NODE id="wcyl4">       
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
-	
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="-1.25" y="2.165" z="0" />		
+
+		<TRANSLATION x="0" y="0" z="1.866" />	
+		<ROTATION axis="y" angle="-30" />		
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -277,11 +277,11 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 	
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="-1.25" y="-2.165" z="0" />		
+		<TRANSLATION x="0" y="" z="1.866" />
+	     	<ROTATION axis="y" angle="-150" />
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -306,11 +306,11 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 	
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="0" y="0" z="1.5" />		
+		<ROTATION axis="x" angle="-90" />
+		<TRANSLATION x="0" y="0.866" z="0" />		
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -321,10 +321,10 @@
         <TEXTURE id="null" />  
 	
 		<ROTATION axis="x" angle="90" />	
-		<TRANSLATION x="0" y="0" z="-1.5" />	
+		<TRANSLATION x="0" y="-0.866" z="0" />	
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -334,11 +334,11 @@
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 	
-		<ROTATION axis="x" angle="90" />	
-		<TRANSLATION x="1.5" y="0" z="0" />	
+		<ROTATION axis="y" angle="90" />	
+		<TRANSLATION x="0.866" y="0" z="0" />	
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -347,12 +347,12 @@
      <NODE id="pcyl4">       
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
-	
-		<ROTATION axis="x" angle="90" />
-		<TRANSLATION x="-0.75" y="1.299" z="0" />		
+		
+		<TRANSLATION x="0" y="0" z="0.866" />
+		<ROTATION axis="y" angle="-30" />		
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
@@ -361,12 +361,12 @@
      <NODE id="pcyl5">       
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
-
-		<ROTATION axis="x" angle="90" />	
-		<TRANSLATION x="-0.75" y="-1.299" z="0" />		
+	
+		<TRANSLATION x="0" y="0" z="0.866" />
+		<ROTATION axis="y" angle="-150" />		
 
         <DESCENDANTS>
-            <LEAF  type="cylinder" args="1 0.5 0.5 20 20" />    
+            <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
 
     </NODE>
