@@ -1422,10 +1422,12 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-	     	this.processNode(this.nodes[this.idRoot], null, null);			// entry point for graph rendering
-}			// remove log below to avoid performance issues
-	this.log("Graph should be rendered here...");
-MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {		}
+	     	this.processNode(this.nodes[this.idRoot], null, null);
+this.log("Graph should be rendered here...");			// entry point for graph rendering
+}
+
+	
+MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
 	var textura = parTex;		
 	var material = parAsp;		
   this.scene.pushMatrix();		
@@ -1444,9 +1446,11 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {		}
   }		
   else if (node.textureID == "clear")		
     textura = null;		
+  
   for (var i = 0; i < node.children.length; i++) {		
     this.processNode(this.nodes[node.children[i]], textura, material);		
   }		
+  
   for (var j = 0; j < node.leaves.length; j++) {		
     if (material != null) {		
         material.apply();		
@@ -1462,4 +1466,3 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {		}
 	// entry point for graph rendering
 	// remove log below to avoid performance issues
 	this.log("Graph should be rendered here...");*/
-}
