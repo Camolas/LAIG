@@ -1,5 +1,6 @@
 var DEGREE_TO_RAD = Math.PI / 180;
-var rectangle = new MyQuad(this,8,4, 0, 5, 0 ,4);
+
+
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -36,6 +37,7 @@ XMLscene.prototype.init = function(application) {
     this.currMat = null;
     
     this.primitives = [];
+    this.rectangle = new MyQuad(this,8,4, 0, 5, 0 ,4);
 }
 
 /**
@@ -156,7 +158,7 @@ XMLscene.prototype.display = function() {
     this.popMatrix();
 
     
-    rectangle.display();
+    this.rectangle.display();
     
     // ---- END Background, camera and axis setup
     
