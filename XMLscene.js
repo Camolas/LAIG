@@ -1,5 +1,5 @@
 var DEGREE_TO_RAD = Math.PI / 180;
-
+var rectangle = new MyQuad(this,8,4, 0, 5, 0 ,4);
 /**
  * XMLscene class, representing the scene that is to be rendered.
  * @constructor
@@ -155,7 +155,7 @@ XMLscene.prototype.display = function() {
 
     this.popMatrix();
 
-    var rectangle = new MyQuad(this,8,4, 0, 5, 0 ,4);
+    
     rectangle.display();
     
     // ---- END Background, camera and axis setup
