@@ -37,7 +37,7 @@ XMLscene.prototype.init = function(application) {
     this.currMat = null;
     
     this.primitives = [];
-    this.rectangle = new MyQuad(this,8,4, 0, 5, 0 ,4);
+    this.rectangle = new MyQuad(this,0,4, 0, 5, 0 ,4);
 }
 
 /**
