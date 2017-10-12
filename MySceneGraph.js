@@ -1348,7 +1348,8 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 							this.warn("Error in leaf");
 						
 						//parse leaf
-						//this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]);
+						console.log(descendants[j]);
+				//		this.nodes[nodeID].addLeaf(new MyGraphLeaf(this,descendants[j]));
                         sizeChildren++;
 					}
 					else
@@ -1422,12 +1423,11 @@ MySceneGraph.generateRandomString = function(length) {
  * Displays the scene, processing each node, starting in the root node.
  */
 MySceneGraph.prototype.displayScene = function() {
-	     	this.processNode(this.nodes[this.idRoot], null, null);
-this.log("Graph should be rendered here...");			// entry point for graph rendering
+    this.processNode(this.nodes[this.idRoot], null, null);
 }
 
 	
-MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
+MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de Aspecto/Material
 	var textura = parTex;		
 	var material = parAsp;		
   this.scene.pushMatrix();		
@@ -1457,7 +1457,8 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) {
     }		
     if (textura != null) {		
         textura.bind();		
-    }		
+    }	
+
     node.leaves[j].display();		
   }		
   this.scene.popMatrix();		

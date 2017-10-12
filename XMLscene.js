@@ -31,6 +31,11 @@ XMLscene.prototype.init = function(application) {
     this.gl.depthFunc(this.gl.LEQUAL);
     
     this.axis = new CGFaxis(this);
+
+    this.currTex = null;
+    this.currMat = null;
+    
+    this.primitives = [];
 }
 
 /**
@@ -138,7 +143,7 @@ XMLscene.prototype.display = function() {
         }
 
         // Displays the scene.
-        this.graph.displayScene();
+       // this.graph.displayScene();
 
     }
 	else
@@ -149,6 +154,9 @@ XMLscene.prototype.display = function() {
     
 
     this.popMatrix();
+
+    var rectangle = new MyQuad(this,8,4, 0, 5, 0 ,4);
+    rectangle.display();
     
     // ---- END Background, camera and axis setup
     

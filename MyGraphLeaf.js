@@ -20,25 +20,26 @@ function MyGraphLeaf(graph, leafInfo) {
 
 	switch(this.type) {
             case 'rectangle':
-             this.obj =  new MyRectangle(this.graph.scene, this.args);
+             this.obj =  new MyQuad(this.graph.scene, this.args);
             break;
 
             case 'sphere':
-            this.obj = new MySphere(this.graph.scene, this.args);
+            	this.obj = new MyCircle(this.graph.scene, this.args);
             break;
 
             case 'cylinder':
-             this.obj = new MyCylinder(this.graph.scene, this.args);
+             	this.obj = new MyCylinder(this.graph.scene, this.args);
             break;
 
             case 'triangle':
-             this.obj = new MyTriangle(this.graph.scene, this.args);
+             	//this.obj = new MyTriangle(this.graph.scene, this.args);
             break;
         }
 
 
 }
 
-MyGraphLeaf.prototype.display = function() {      
-	this.obj.display();
+MyGraphLeaf.prototype.display = function() {  
+	if(this.type != 'triangle')    
+		this.obj.display();
 }
