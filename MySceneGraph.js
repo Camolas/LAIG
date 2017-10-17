@@ -60,6 +60,7 @@ MySceneGraph.prototype.onXMLReady = function()
     this.loadedOk = true; //só podemos desenhar a cena qq tivermos tudo inicializado!
     // é executada uma única vez qdo o grafo for inicializado e a cena é inicializada
     // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
+
     this.scene.onGraphLoaded();
 }
 
@@ -67,6 +68,7 @@ MySceneGraph.prototype.onXMLReady = function()
  * Parses the LSX file, processing each block.
  */
 MySceneGraph.prototype.parseLSXFile = function(rootElement) {
+    console.warn(rootElement);
     if (rootElement.nodeName != "SCENE") // vamos verificar se o elemento principal é do tipo scene
         return "root tag <SCENE> missing";
     

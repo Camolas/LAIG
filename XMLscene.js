@@ -37,7 +37,7 @@ XMLscene.prototype.init = function(application) {
     this.currMat = null;
     
     this.primitives = [];
-    this.rectangle = new MyQuad(this,0,4, 0, 5, 0 ,4);
+    this.rectangle = new MyQuad(this,5,0,0,4);
 }
 
 /**
@@ -145,20 +145,16 @@ XMLscene.prototype.display = function() {
         }
 
         // Displays the scene.
-       // this.graph.displayScene();
+        //this.graph.displayScene();
+
+    this.rectangle.display();
 
     }
-	else
-	{
-		// Draw axis
-		this.axis.display();
-	}
     
 
     this.popMatrix();
 
     
-    this.rectangle.display();
     
     // ---- END Background, camera and axis setup
     
