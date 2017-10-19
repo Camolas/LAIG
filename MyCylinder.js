@@ -2,7 +2,7 @@
  * MyCilinder
  * @constructor
  */
- function MyCylinder(scene, slices, stacks) {
+ function MyCylinderSurface(scene, slices, stacks) {
  	CGFobject.call(this,scene);
 	
 	this.slices = slices;
