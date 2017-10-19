@@ -24,7 +24,7 @@ function MyGraphLeaf(graph, leafInfo) {
             break;
 
             case 'sphere':
-            	this.obj = new MyCircle(this.graph.scene, this.args);
+            	this.obj = new MySphere(this.graph.scene, this.args);
             break;
 
             case 'cylinder':
