@@ -1,53 +1,60 @@
 /**
- * MyCilinder
+ * MyCylinder
  * @constructor
  */
- function MyCylinderSurface(scene, slices, stacks) {
- 	CGFobject.call(this,scene);
-	
-	this.slices = slices;
-	this.stacks = stacks;
+function MyCylinder(scene, args){
+	  CGFobject.call(this,scene);
+    args = args.split(" ").map(Number);
 
- 	this.initBuffers();
- };
+    this.height = args[0];
+    this.bot_r = args[1];
+    this.top_r = args[2];
+    this.stacks = args[3];
+    this.slices = args[4];
+	this.if_top = args[5];
+	this.if_bot = args[6];
 
- MyCylinder.prototype = Object.create(CGFobject.prototype);
- MyCylinder.prototype.constructor = MyCylinder;
+    this.cylinder = new MyCylinderNoTops(scene, this.height, this.bot_r, this.top_r, this.stacks, this.slices);
+    this.cylinder.initBuffers();
 
- MyCylinder.prototype.initBuffers = function() {
- 	this.vertices = [];
- 	this.normals = [];
- 	this.indices = [];
- 	this.texCoords = [];
+    this.topCover = new MyCircle(scene, this.top_r, this.slices);
+ 	  this.topCover.initBuffers();
 
- 	var patchLengthx = 1 / this.slices;
- 	var patchLengthy = 1 / this.stacks;
- 	var xCoord =0;
- 	var yCoord =0;
-	var ang=(2*Math.PI)/this.slices;
+    this.botCover = new MyCircle(scene, this.bot_r, this.slices);
+ 	  this.botCover.initBuffers();
+};
 
-	for(i = 0; i <= this.stacks; i++) {
-		for(j = 0; j < this.slices; j++) {
-			this.vertices.push(Math.cos(ang*j),Math.sin(ang*j),i);
-			this.normals.push(Math.cos(ang*j),Math.sin(ang*j),0);
-			this.texCoords.push(xCoord, yCoord);
-			xCoord += patchLengthx;
-		}
-		xCoord =0;
-		yCoord += patchLengthy;
-	}
-		
-	for(i = 0; i < this.stacks; i++) {
-		for(j = 0; j < this.slices - 1; j++) {
-			this.indices.push(i*this.slices + j, i*this.slices + j+1, (i+1)*this.slices + j);
-			this.indices.push(i*this.slices + j+1, (i+1)*this.slices + j+1, (i+1)*this.slices + j);
-		}
+MyCylinder.prototype = Object.create(CGFobject.prototype);
+MyCylinder.prototype.constructor = MyCylinder;
 
-		this.indices.push(i*this.slices + this.slices - 1, i*this.slices, (i+1)*this.slices + this.slices - 1);
-		this.indices.push(i*this.slices, i*this.slices + this.slices, (i+1)*this.slices + this.slices - 1);
-	}
+MyCylinder.prototype.display = function()
+{
+    this.scene.pushMatrix();
 
+    this.scene.translate(0, 0, this.height/2);
 
- 	this.primitiveType = this.scene.gl.TRIANGLES;
- 	this.initGLBuffers();
- };
+    if(this.if_top == 1) {
+		this.scene.pushMatrix();
+		this.scene.translate(0, 0, this.height/2);
+		this.topCover.display();
+		this.scene.popMatrix();
+	};
+
+	if(this.if_bot == 1) {
+		this.scene.pushMatrix();
+		this.scene.translate(0, 0, -this.height/2);
+		this.scene.rotate(Math.PI, 1, 0, 0);
+		this.botCover.display();
+		this.scene.popMatrix();
+	};
+
+    this.scene.pushMatrix();
+    this.cylinder.display();
+    this.scene.popMatrix();
+
+    this.scene.popMatrix();
+};
+
+MyCylinder.prototype.updateTex = function(S, T) {
+    this.cylinder.updateTex(S, T);
+};
