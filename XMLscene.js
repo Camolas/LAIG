@@ -147,7 +147,7 @@ XMLscene.prototype.display = function() {
         // Displays the scene.
         this.graph.displayScene();
 
-    this.rectangle.display();
+    //this.rectangle.display();
     
     }
     
