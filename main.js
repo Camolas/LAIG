@@ -4,16 +4,16 @@ serialInclude=function(a){var b=console,c=serialInclude.l;if(a.length>0)c.splice
 
 function getUrlVars() {
     var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,    
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
     function(m,key,value) {
       vars[decodeURIComponent(key)] = decodeURIComponent(value);
     });
     return vars; // a estrutura inicial é semelhante ao de cgraf
-}	 
+}
 
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 			 'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js',
-			 'MyQuad.js', 'MyCircle.js', 'MyCylinder.js', 'MyCylinderNoTops.js','MySphere.js',
+			 'MyQuad.js', 'MyCircle.js', 'MyCylinder.js', 'MyCylinderNoTops.js','MySphere.js','LinearAnimation.js','Animations.js','CircularAnimation.js','BenzierAnimation.js',
 main=function()
 {
 	// Standard application, scene and interface setup
@@ -28,17 +28,17 @@ main=function()
 
     myInterface.setActiveCamera(myScene.camera);
 
-	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-	
-	var filename=getUrlVars()['file'] || "Molecula.xml";
+	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml
+	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor)
 
-	// create and load graph, and associate it to scene. 
+	var filename=getUrlVars()['file'] || "molecula.xml";
+
+	// create and load graph, and associate it to scene.
 	// Check console for loading errors
 	var myGraph = new MySceneGraph(filename, myScene);
-	
+
 	// start
     app.run();
 }
 
-]);
+]); // é uma função que tem os ficheiros que são strings e no final tem a função como parâmetro!
