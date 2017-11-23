@@ -85,6 +85,16 @@
 </MATERIALS>
 
 
+<ANIMATIONS>
+	<ANIMATION id="test1" speed="3.0" type="linear">
+		<controlpoint xx="0" yy="0" zz="0" />
+		<controlpoint xx="5" yy="0" zz="0" />
+		<controlpoint xx="0" yy="0" zz="5" />
+		<controlpoint xx="0" yy="5" zz="0" />
+	</ANIMATION>
+</ANIMATIONS>
+
+
 <!-- The leaves -->
 <LEAVES>
 </LEAVES>
@@ -116,28 +126,13 @@
         <TEXTURE id="plastic" />
 
         <DESCENDANTS>
+			<NODEREF id="ws1" />
 			<LEAF  type="sphere" args="1 20 20" />
 		</DESCENDANTS>
 
     </NODE>
-
-    <!-- White atoms -->
-     <NODE id="whiteSpheres">
-        <MATERIAL id="null" />
-        <TEXTURE id="glass" />
-
-        <DESCENDANTS>
-            <NODEREF id="ws1" />
-            <NODEREF id="ws2" />
-            <NODEREF id="ws3" />
-            <NODEREF id="ws4" />
-			<NODEREF id="ws5" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <!-- The 1st atom -->
-     <NODE id="ws1">
+	
+	<NODE id="ws1">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
@@ -148,6 +143,34 @@
         </DESCENDANTS>
 
     </NODE>
+
+    <!-- White atoms -->
+     <NODE id="whiteSpheres">
+        <MATERIAL id="null" />
+        <TEXTURE id="glass" />
+
+        <DESCENDANTS>
+            <!--<NODEREF id="ws1" />-->
+            <NODEREF id="ws2" />
+            <NODEREF id="ws3" />
+            <NODEREF id="ws4" />
+			<NODEREF id="ws5" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- The 1st atom -->
+   <!--  <NODE id="ws1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+		<TRANSLATION x="0" y="3.732" z="0" />
+
+        <DESCENDANTS>
+            <LEAF  type="sphere" args="1 20 20" />
+        </DESCENDANTS>
+
+    </NODE>-->
 
 	    <!-- The 2nd atom -->
      <NODE id="ws2">
