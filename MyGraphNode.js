@@ -7,7 +7,7 @@ function MyGraphNode(graph, nodeID) {
     this.graph = graph;
 
     this.nodeID = nodeID;
-    
+
     // IDs of child nodes.
     this.children = [];
 
@@ -17,11 +17,11 @@ function MyGraphNode(graph, nodeID) {
     // The material ID.
     this.materialID = null ;
 
-    //this.animations = [];
-    
+    this.animations = [];
+
     // The texture ID.
     this.textureID = null ;
-    
+
     // The animation ID
 	this.animationID = null;
 
@@ -42,5 +42,3 @@ MyGraphNode.prototype.addChild = function(nodeID) {
 MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
-
-
