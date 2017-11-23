@@ -1257,7 +1257,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
             var specsNames = [];
-            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "ANIMATIONREFS", "DESCENDANTS"];
             for (var j = 0; j < nodeSpecs.length; j++) {
                 var name = nodeSpecs[j].nodeName;
                 specsNames.push(nodeSpecs[j].nodeName);
@@ -1372,7 +1372,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 }
             }
             
-	// Retrieves information about animations.
+	// Animations
             var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
             if (animationsIndex != -1){
                 var animations = nodeSpecs[animationsIndex].children;
