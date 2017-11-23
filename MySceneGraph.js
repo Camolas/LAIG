@@ -1372,6 +1372,23 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 }
             }
             
+	// Retrieves information about animations.
+            var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
+            if (animationsIndex != -1){
+                var animations = nodeSpecs[animationsIndex].children;
+
+                for (var j = 0; j < animations.length; j++) {
+                    if (animations[j].nodeName == "ANIMATIONREF")
+                    {
+                        var animationID = this.reader.getString(animations[j], 'id');
+                        if (animationID == null )
+                            this.onXMLMinorError("unable to parse animationRef id");
+						
+                        this.nodes[nodeID].animations.push(this.animations[animationID]);
+                    }
+                }
+            }
+		
             // Retrieves information about children.
             var descendantsIndex = specsNames.indexOf("DESCENDANTS");
             if (descendantsIndex == -1)
