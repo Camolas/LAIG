@@ -105,7 +105,6 @@ LinearAnimation.prototype.getMatrix = function() {
 		this.lastTime = date.getTime();
 	}
 	this.scene.translate(this.posX, this.posY, this.posZ);
-//	return([this.posX, this.posY, this.posZ]);
 }
 
 LinearAnimation.prototype.getType = function() {
