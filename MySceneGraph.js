@@ -6,9 +6,9 @@ var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
-//var ANIMATIONS_INDEX = 5;
-var LEAVES_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 5;
+var LEAVES_INDEX = 6;
+var NODES_INDEX = 7;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -139,6 +139,17 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
             this.onXMLMinorError("tag <MATERIALS> out of order");
         
         if ((error = this.parseMaterials(nodes[index])) != null )
+            return error;
+    }
+	
+    // <ANIMATIONS>
+    if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+        return "tag <ANIMATIONS> missing";
+    else {
+        if (index != ANIMATIONS_INDEX)
+            this.onXMLMinorError("tag <ANIMATIONS> out of order");
+        
+        if ((error = this.parseAnimations(nodes[index])) != null )
             return error;
     }
     
@@ -1161,6 +1172,52 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
     console.log("Parsed materials");
 }
 
+/**
+ * Parses the <ANIMATIONS> block.
+ */
+ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+    
+    var children = animationsNode.children;
+    
+    this.animations = [];
+
+    for (var i = 0; i < children.length; i++) {
+        if (children[i].nodeName != "ANIMATION") {
+            this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+            continue;
+        }
+        
+        var animationID = this.reader.getString(children[i], 'id');
+        if (animationID == null )
+            return "no ID defined for animation";
+        
+        if (this.animations[animationID] != null )
+            return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+        var animationType = this.reader.getString(children[i], 'type');
+        if (animationType == null )
+            return "no Type defined for animation";
+        
+        if(animationType == "linear"){
+
+            var velocity = [this.reader.getFloat(children[i], 'speed'),
+                            this.reader.getFloat(children[i], 'speed'),
+                            this.reader.getFloat(children[i], 'speed')];
+
+            var animationSpecs = children[i].children;
+            var controlPoints = [];
+
+            for (var j = 0; j < animationSpecs.length; j++){
+                controlPoints.push([this.reader.getFloat(animationSpecs[j], 'xx'),
+                                    this.reader.getFloat(animationSpecs[j], 'yy'),
+                                    this.reader.getFloat(animationSpecs[j], 'zz')])
+            }
+            var newAnimation = new LinearAnimation(this.scene, controlPoints, velocity);
+            this.animations[animationID] = newAnimation;
+
+        }
+    }
+}
 
 /**
  * Parses the <NODES> block.
