@@ -1509,7 +1509,6 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
 	var textura = parTex;		
 	var material = parAsp;	
 
-    //console.warn (node);
 
 
   this.scene.pushMatrix();		
@@ -1540,12 +1539,20 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
     if (textura != null) {		
         textura.bind();		
     }	
-//console.warn("display leave");
     node.leaves[j].display();		
   }		
-  this.scene.popMatrix();		
+ for(var i = 0; i < node.children.length; i++){
+            this.scene.pushMatrix();
+                for(var j = 0; j < node.animations.length; j++){
+                   /* this.scene.translate(node.animations[j].getMatrix()[0], node.animations[j].getMatrix()[1], node.animations[j].getMatrix()[2]);*/
+                    if(node.animations[j].getType() == "linear"){
+                        node.animations[j].getMatrix();
+                        //console.log(node.animations[j].getMatrix());
+                    }else if(node.animations[j].getType() == "circular"){
+                        node.animations[j].display();
+                    }
+                }
+                this.displayScene(node.children[i], materialID, textureID);
+            this.scene.popMatrix();
+        }		
 }
-	/*
-	// entry point for graph rendering
-	// remove log below to avoid performance issues
-	this.log("Graph should be rendered here...");*/
