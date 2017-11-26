@@ -1200,19 +1200,39 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 
         if(animationType == "linear"){
 
-            var speed = [this.reader.getFloat(children[i], 'speed'),
-                            this.reader.getFloat(children[i], 'speed'),
-                            this.reader.getFloat(children[i], 'speed')];
-
+            //var speed = [this.reader.getFloat(children[i], 'speed'),
+            //                this.reader.getFloat(children[i], 'speed'),
+            //                this.reader.getFloat(children[i], 'speed')];
+        	var speed = this.reader.getFloat(children[i], 'speed');
+        	
             var animationSpecs = children[i].children;
             var controlPoints = [];
 
             for (var j = 0; j < animationSpecs.length; j++){
-                controlPoints.push([this.reader.getFloat(animationSpecs[j], 'xx'),
+                /*controlPoints.push([this.reader.getFloat(animationSpecs[j], 'xx'),
                                     this.reader.getFloat(animationSpecs[j], 'yy'),
                                     this.reader.getFloat(animationSpecs[j], 'zz')])
+            }*/
+            
+            var specName = linearSpecs[j].nodeName;
+            if (specName != "controlpoint")
+                this.onXMLMinorError("unknown linear spec. expected controlpoint, got " + specName);
+
+            var x = this.reader.getFloat(linearSpecs[j], 'xx');
+            if (x == null || isNaN(x))
+                return "control point x linear undefined or not a number";
+            var y = this.reader.getFloat(linearSpecs[j], 'yy');
+            if (y == null || isNaN(y))
+                return "control point y linear undefined or not a number";
+            var z = this.reader.getFloat(linearSpecs[j], 'zz');
+            if (x == null || isNaN(x))
+                return "control point y linear undefined or not a number";
+
+            var cPoint = [x, y, z];
+            controlPoints.push(cPoint);
             }
-            var newAnimation = new LinearAnimation(this.scene, controlPoints, speed);
+            
+            var newAnimation = new LinearAnimation(this.scene, animationID, speed, controlPoints);
             this.animations[animationID] = newAnimation;
 
         }
@@ -1377,6 +1397,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             if (animationsIndex != -1){
                 var animations = nodeSpecs[animationsIndex].children;
 
+                var anim = [];
                 for (var j = 0; j < animations.length; j++) {
                     if (animations[j].nodeName == "ANIMATIONREF")
                     {
@@ -1507,13 +1528,13 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 
-MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de Aspecto/Material
-	var textura = parTex;
-	var material = parAsp;
+MySceneGraph.prototype.processNode = function(node, texID, matID) { 
+	var textura = texID;
+	var material = matID;
 	//var node = this.nodes[nodeID];
 
-	//this.scene.pushMatrix();		
-	  this.scene.multMatrix(node.transformMatrix);		
+			
+	  //this.scene.multMatrix(node.transformMatrix);		
 	  if (node.textureID != null) {		
 	    if (node.textureID == 'clear')		
 	      textura = null;		
@@ -1527,7 +1548,11 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
 	    textura = this.textures[node.textureID][0];		
 	  }		
 	  else if (node.textureID == "clear")		
-	    textura = null;		
+	    textura = null;	
+	  
+	  this.scene.pushMatrix();
+	  this.scene.multMatrix(node.transformMatrix);
+	  this.scene.multMatrix(node.animationMatrix);
 	  
 	  for (var i = 0; i < node.children.length; i++) {		
 	    this.processNode(this.nodes[node.children[i]], textura, material);		
@@ -1543,14 +1568,14 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
 	//console.warn("display leave");
 	    node.leaves[j].display();		
 	  }		
-	//  this.scene.popMatrix();		
+	  this.scene.popMatrix();		
  
- for(var i = 0; i < node.children.length; i++){
+ /*for(var i = 0; i < node.children.length; i++){
             this.scene.pushMatrix();
                 for(var j = 0; j < node.animations.length; j++){
                         node.animations[j].display();
                     }
                 this.processNode(node.children[i], textura, material);
             this.scene.popMatrix();
-        }
+        }*/
 }

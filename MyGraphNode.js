@@ -23,11 +23,15 @@ function MyGraphNode(graph, nodeID) {
     // texture ID.
     this.textureID = null ;
 
-    // animation ID
-	this.animationID = null;
-
     this.transformMatrix = mat4.create();
     mat4.identity(this.transformMatrix);
+    
+    this.animationMatrix = mat4.create();
+    mat4.identity(this.animationMatrix);
+
+    this.atime = 0;
+    this.aind = 0;
+    this.asec = 0;
 }
 
 /**
@@ -42,4 +46,23 @@ MyGraphNode.prototype.addChild = function(nodeID) {
  */
 MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
+}
+
+MyGraphNode.prototype.updateAnimation = function(timedif){
+
+    this.atime += timedif;
+
+    if(this.aind < this.animations.length){
+        
+        var nowani = this.graph.animations[this.animations[this.aind]];
+        this.animationMatrix = nowani.calcMatrix(this.atime, this.asec);
+
+        if(this.atime >= nowani.getSpan()){
+            this.aind++;
+            this.asec = 0;
+            this.atime = 0;
+        }
+        else if (this.atime >= nowani.sectionTimes[this.asec])
+            this.asec++;
+    }
 }
