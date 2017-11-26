@@ -8,21 +8,22 @@ function MyGraphNode(graph, nodeID) {
 
     this.nodeID = nodeID;
 
-    // IDs of child nodes.
+    // child nodes ID
     this.children = [];
 
-    // IDs of child nodes.
+    // leaves ID
     this.leaves = [];
 
-    // The material ID.
+    // material ID.
     this.materialID = null ;
 
+    // animations
     this.animations = [];
 
-    // The texture ID.
+    // texture ID.
     this.textureID = null ;
 
-    // The animation ID
+    // animation ID
 	this.animationID = null;
 
     this.transformMatrix = mat4.create();
@@ -30,14 +31,14 @@ function MyGraphNode(graph, nodeID) {
 }
 
 /**
- * Adds the reference (ID) of another node to this node's children array.
+ * Adds ID of another node to this node's children array
  */
 MyGraphNode.prototype.addChild = function(nodeID) {
     this.children.push(nodeID);
 }
 
 /**
- * Adds a leaf to this node's leaves array.
+ * Adds a leaf to this node's leaves array
  */
 MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);

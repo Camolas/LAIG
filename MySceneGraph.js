@@ -1200,7 +1200,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 
         if(animationType == "linear"){
 
-            var velocity = [this.reader.getFloat(children[i], 'speed'),
+            var speed = [this.reader.getFloat(children[i], 'speed'),
                             this.reader.getFloat(children[i], 'speed'),
                             this.reader.getFloat(children[i], 'speed')];
 
@@ -1212,7 +1212,7 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
                                     this.reader.getFloat(animationSpecs[j], 'yy'),
                                     this.reader.getFloat(animationSpecs[j], 'zz')])
             }
-            var newAnimation = new LinearAnimation(this.scene, controlPoints, velocity);
+            var newAnimation = new LinearAnimation(this.scene, controlPoints, speed);
             this.animations[animationID] = newAnimation;
 
         }
@@ -1507,16 +1507,16 @@ MySceneGraph.prototype.displayScene = function() {
 }
 
 
-MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de Aspecto/Material
+MySceneGraph.prototype.processNode = function(nodeID, parTex, parAsp) { //asp de Aspecto/Material
 	var textura = parTex;
 	var material = parAsp;
-
+	var node = this.nodes[nodeID];
 
 
   this.scene.pushMatrix();
 
   console.log("node");
-  console.log(node);
+  console.log(nodeID);
 
   if(node.transformMatrix != undefined)
     this.scene.multMatrix(node.transformMatrix);
@@ -1537,7 +1537,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
     textura = null;
 
   for (var i = 0; i < node.children.length; i++) {
-    this.processNode(this.nodes[node.children[i]], textura, material);
+    this.processNode(node.children[i], textura, material);
   }
 
   for (var j = 0; j < node.leaves.length; j++) {
@@ -1551,17 +1551,10 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
   }
  for(var i = 0; i < node.children.length; i++){
             this.scene.pushMatrix();
-              /*  for(var j = 0; j < node.animations.length; j++){
-                   // this.scene.translate(node.animations[j].getMatrix()[0], node.animations[j].getMatrix()[1], node.animations[j].getMatrix()[2]);*/
-                  /*  if(node.animations[j].getType() == "linear"){
-                        node.animations[j].getMatrix();
-                        //console.log(node.animations[j].getMatrix());
-                    }else if(node.animations[j].getType() == "circular"){
+                for(var j = 0; j < node.animations.length; j++){
                         node.animations[j].display();
                     }
-                }*/
-
-                this.processNode(this.nodes[node.children[i]], material, textura);
+                this.processNode(node.children[i], textura, material);
             this.scene.popMatrix();
         }
 }

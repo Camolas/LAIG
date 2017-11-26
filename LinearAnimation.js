@@ -3,7 +3,7 @@
 * @constructor
 */
 
-function LinearAnimation(scene, controlPoints, velocity){
+function LinearAnimation(scene, controlPoints, speed){
 	CGFobject.call(this, scene);
 	this.scene = scene;
 	var date = new Date();
@@ -11,25 +11,29 @@ function LinearAnimation(scene, controlPoints, velocity){
 	this.initialTime = date.getTime();
 	this.lastTime = this.initialTime;
 	this.timeNeeded = 0;
+	
 	this.distanceMoved = [0, 0, 0];
 
+	//at least 2 points are needed
 	if(controlPoints.length < 2)
 		console.log("controlPoints is not a valid array");
 	else
 		this.controlPoints = controlPoints;
 
-	this.posX = controlPoints[0][0];
-	this.posY = controlPoints[0][1];
-	this.posZ = controlPoints[0][2];
+	this.X = controlPoints[0][0];
+	this.Y = controlPoints[0][1];
+	this.Z = controlPoints[0][2];
 
-	if(velocity.length != 3)
-		console.log("velocity is not a valid array");
+	if(speed.length != 3)
+		console.log("speed is not a valid array");
 	else{
-		this.velocity = [];
-		this.velocity[0] = velocity[0];
-		this.velocity[1] = velocity[1];
-		this.velocity[2] = velocity[2];
+		this.speed = [];
+		this.speed[0] = speed[0];
+		this.speed[1] = speed[1];
+		this.speed[2] = speed[2];
 	}
+	
+	this.direction = [];
 	this.trajectories = [];
 
 	for(i = 1; i < this.controlPoints.length; i++){
@@ -38,6 +42,8 @@ function LinearAnimation(scene, controlPoints, velocity){
 		var pathZ = this.controlPoints[i][2]-this.controlPoints[i-1][2];
 
 		this.trajectories.push([pathX, pathY, pathZ]);
+		var rot = this.controlPoints[i-1][0]/distanceX;
+		this.direction.push(Math.acos(rot));
 	}
 
 	this.currentTrajectory = this.trajectories.shift();
@@ -53,58 +59,61 @@ LinearAnimation.prototype.getMatrix = function() {
 
 		var date = new Date();
 		var timePassed = date.getTime() - this.initialTime;
-		var deltaTime = (date.getTime()-this.lastTime)/1000;  //seconds
-		var deltaX, deltaY, deltaZ;
+		var dTime = (date.getTime()-this.lastTime)/1000;  //seconds
+		var dX, dY, dZ;
 
 		//X
 		if(this.distanceMoved[0] < Math.abs(this.currentTrajectory[0])){
 			if(this.currentTrajectory[0] > 0)
-				deltaX = this.velocity[0]*deltaTime;
+				dX = dTime * this.speed[0];
 			else
-				deltaX = -this.velocity[0]*deltaTime;
+				dX = -(dTime * this.speed[0]);
 
-			this.distanceMoved[0] += Math.abs(deltaX);
+			this.distanceMoved[0] += Math.abs(dX);
 		}
 		else
-			deltaX = null;
+			dX = null;
 		//Y
 		if(this.distanceMoved[1] <  Math.abs(this.currentTrajectory[1])){
 			if(this.currentTrajectory[1] > 0)
-				deltaY = this.velocity[1]*deltaTime;
+				dY = dTime * this.speed[1];
 			else
-				deltaY = -this.velocity[1]*deltaTime;
+				dY = -(dTime * this.speed[1]);
 
-			this.distanceMoved[1] += Math.abs(deltaY);
+			this.distanceMoved[1] += Math.abs(dY);
 		}
 		else
-			deltaY = null;
+			dY = null;
 		//Z
 		if(this.distanceMoved[2] <  Math.abs(this.currentTrajectory[2])){
 			if(this.currentTrajectory[2] > 0)
-				deltaZ = this.velocity[2]*deltaTime;
+				dZ = dTime * this.speed[2];
 			else
-				deltaZ = -this.velocity[2]*deltaTime;
+				dZ = -(dTime * this.speed[2]);
 
-			this.distanceMoved[2] += Math.abs(deltaZ);
+			this.distanceMoved[2] += Math.abs(dZ);
 		}
 		else
-			deltaZ = null;
+			dZ = null;
 
-		if(deltaX == null && deltaY == null && deltaZ == null){
+		if(dX == null && dY == null && dZ == null){
 			this.currentTrajectory = this.trajectories.shift();
 			this.distanceMoved = [0,0,0];
+			this.direction.pop();
 		}
 		
-		if(deltaX != null)
-			this.posX += deltaX;
-		if(deltaY != null)
-			this.posY += deltaY;
-		if(deltaZ != null)
-			this.posZ += deltaZ;
+		if(dX != null)
+			this.X += dX;
+		if(dY != null)
+			this.Y += dY;
+		if(dZ != null)
+			this.Z += dZ;
 
 		this.lastTime = date.getTime();
 	}
-	this.scene.translate(this.posX, this.posY, this.posZ);
+	this.scene.translate(this.X, this.Y, this.Z);
+	this.scene.rotate(this.direction[0]);
+	console.log("direction = " + this.direction);
 }
 
 LinearAnimation.prototype.getType = function() {
