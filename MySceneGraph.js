@@ -1200,36 +1200,15 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 
         if(animationType == "linear"){
 
-            //var speed = [this.reader.getFloat(children[i], 'speed'),
-            //                this.reader.getFloat(children[i], 'speed'),
-            //                this.reader.getFloat(children[i], 'speed')];
         	var speed = this.reader.getFloat(children[i], 'speed');
         	
             var animationSpecs = children[i].children;
             var controlPoints = [];
 
             for (var j = 0; j < animationSpecs.length; j++){
-                /*controlPoints.push([this.reader.getFloat(animationSpecs[j], 'xx'),
+                controlPoints.push([this.reader.getFloat(animationSpecs[j], 'xx'),
                                     this.reader.getFloat(animationSpecs[j], 'yy'),
                                     this.reader.getFloat(animationSpecs[j], 'zz')])
-            }*/
-            
-            var specName = linearSpecs[j].nodeName;
-            if (specName != "controlpoint")
-                this.onXMLMinorError("unknown linear spec. expected controlpoint, got " + specName);
-
-            var x = this.reader.getFloat(linearSpecs[j], 'xx');
-            if (x == null || isNaN(x))
-                return "control point x linear undefined or not a number";
-            var y = this.reader.getFloat(linearSpecs[j], 'yy');
-            if (y == null || isNaN(y))
-                return "control point y linear undefined or not a number";
-            var z = this.reader.getFloat(linearSpecs[j], 'zz');
-            if (x == null || isNaN(x))
-                return "control point y linear undefined or not a number";
-
-            var cPoint = [x, y, z];
-            controlPoints.push(cPoint);
             }
             
             var newAnimation = new LinearAnimation(this.scene, animationID, speed, controlPoints);

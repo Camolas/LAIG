@@ -38,6 +38,9 @@ XMLscene.prototype.init = function(application) {
     
     this.primitives = [];
     this.rectangle = new MyQuad(this,5,0,0,4);
+    
+    this.setUpdatePeriod(10);
+    this.time = 0;
 }
 
 /**
@@ -153,9 +156,11 @@ XMLscene.prototype.display = function() {
     
 
     this.popMatrix();
+}
 
-    
-    
-    // ---- END Background, camera and axis setup
-    
+XMLscene.prototype.update = function(currTime){
+    var timedif = (currTime - this.time) * 0.001;
+    this.time = currTime;
+    for(var node in this.graph.nodes)
+        this.graph.nodes[node].updateAnimation(timedif);
 }
