@@ -48,6 +48,7 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
+// Update animation
 MyGraphNode.prototype.updateAnimation = function(deltaTime){
 
     this.animTime += deltaTime;
