@@ -43,6 +43,7 @@ class LinearAnimation extends Animation{
 	}
 
 	getmatrix(time, section){
+		console.log("in function");
 	       var sectionTime = time;
 	        
 	       if (section >= 1) {
@@ -70,9 +71,9 @@ class LinearAnimation extends Animation{
 	           mat4.translate(this.matrix, this.matrix, [this.controlPoints[section][0], this.controlPoints[section][1], this.controlPoints[section][2]]);
 	           mat4.rotate(this.matrix, this.matrix, Math.atan(-sectionVector[2], sectionVector[0]) + Math.PI/2, [0, 1, 0]);
 	       }
-	       else{
-	          this.finished = true;
-	       }
+	      // else{
+	      //    this.finished = true;
+	      // }
 
 	       //console.log("matrix: " + this.matrix);
 
