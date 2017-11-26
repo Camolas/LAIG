@@ -29,9 +29,9 @@ function MyGraphNode(graph, nodeID) {
     this.animationMatrix = mat4.create();
     mat4.identity(this.animationMatrix);
 
-    this.atime = 0;
-    this.aind = 0;
-    this.asec = 0;
+    this.animTime = 0;
+    this.animIndex = 0;
+    this.animSec = 0;
 }
 
 /**
@@ -48,21 +48,21 @@ MyGraphNode.prototype.addLeaf = function(leaf) {
     this.leaves.push(leaf);
 }
 
-MyGraphNode.prototype.updateAnimation = function(timedif){
+MyGraphNode.prototype.updateAnimation = function(deltaTime){
 
-    this.atime += timedif;
+    this.animTime += deltaTime;
 
-    if(this.aind < this.animations.length){
+    if(this.animIndex < this.animations.length){
         
-        var nowani = this.graph.animations[this.animations[this.aind]];
-        this.animationMatrix = nowani.calcMatrix(this.atime, this.asec);
+        var newAnim = this.graph.animations[this.animations[this.animIndex]];
+        this.animationMatrix = newAnim.getAnimationMatrix(this.animTime, this.animSec);
 
-        if(this.atime >= nowani.getSpan()){
-            this.aind++;
-            this.asec = 0;
-            this.atime = 0;
+        if(this.animTime >= newAnim.getSpan()){
+            this.animIndex++;
+            this.animSec = 0;
+            this.animTime = 0;
         }
-        else if (this.atime >= nowani.sectionTimes[this.asec])
-            this.asec++;
+        else if (this.animTime >= newAnim.sectionTimes[this.animSec])
+            this.animSec++;
     }
 }
