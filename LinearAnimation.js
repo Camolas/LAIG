@@ -53,11 +53,11 @@ class LinearAnimation extends Animation{
 
 	           //console.log("sectiontime: " + sectionTime);
 
-	           var deltax = sectionTime * this.sectionValues[section][0];
-	           var deltay = sectionTime * this.sectionValues[section][1];
-	           var deltaz = sectionTime * this.sectionValues[section][2];
+	           var dX = sectionTime * this.sectionStats[section][0];
+	           var dY = sectionTime * this.sectionStats[section][1];
+	           var dZ = sectionTime * this.sectionStats[section][2];
 
-	           //console.log("deltas: " + [deltax, deltay, deltaz]);
+	           //console.log("deltas: " + [dX, dY, dZ]);
 
 	           var sectionVector = [
 	                this.controlPoints[section+1][0]-this.controlPoints[section][0],
@@ -66,7 +66,7 @@ class LinearAnimation extends Animation{
 	           ];
 
 	           mat4.identity(this.matrix);
-	           mat4.translate(this.matrix, this.matrix, [deltax, deltay, deltaz]);
+	           mat4.translate(this.matrix, this.matrix, [dX, dY, dZ]);
 	           mat4.translate(this.matrix, this.matrix, [this.controlPoints[section][0], this.controlPoints[section][1], this.controlPoints[section][2]]);
 	           mat4.rotate(this.matrix, this.matrix, Math.atan(-sectionVector[2], sectionVector[0]) + Math.PI/2, [0, 1, 0]);
 	       }
