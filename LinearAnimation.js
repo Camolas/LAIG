@@ -42,7 +42,7 @@ function LinearAnimation(scene, controlPoints, speed){
 		var pathZ = this.controlPoints[i][2]-this.controlPoints[i-1][2];
 
 		this.trajectories.push([pathX, pathY, pathZ]);
-		var rot = this.controlPoints[i-1][0]/distanceX;
+		var rot = this.controlPoints[i-1][0]/pathX;
 		this.direction.push(Math.acos(rot));
 	}
 

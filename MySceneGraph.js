@@ -1512,7 +1512,7 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
 	var material = parAsp;
 	//var node = this.nodes[nodeID];
 
-	this.scene.pushMatrix();		
+	//this.scene.pushMatrix();		
 	  this.scene.multMatrix(node.transformMatrix);		
 	  if (node.textureID != null) {		
 	    if (node.textureID == 'clear')		
@@ -1543,44 +1543,8 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
 	//console.warn("display leave");
 	    node.leaves[j].display();		
 	  }		
-	  this.scene.popMatrix();		
-	}
- /* this.scene.pushMatrix();
-
-  console.log("node");
-  console.log(nodeID);
-
-  if(node.transformMatrix != undefined)
-    this.scene.multMatrix(node.transformMatrix);
-
-  if (node.textureID != null) {
-    if (node.textureID == 'clear')
-      textura = null;
-    else
-      this.scene.currTexture = this.textures[node.textureID];
-  }
-  if (node.materialID != "null") {
-    material = this.materials[node.materialID];
-  }
-  if (node.textureID != "null" && node.textureID != "clear") {
-    textura = this.textures[node.textureID][0];
-  }
-  else if (node.textureID == "clear")
-    textura = null;
-
-  for (var i = 0; i < node.children.length; i++) {
-    this.processNode(node.children[i], textura, material);
-  }
-
-  for (var j = 0; j < node.leaves.length; j++) {
-    if (material != null) {
-        material.apply();
-    }
-    if (textura != null) {
-        textura.bind();
-    }
-    node.leaves[j].display();
-  }
+	//  this.scene.popMatrix();		
+ 
  for(var i = 0; i < node.children.length; i++){
             this.scene.pushMatrix();
                 for(var j = 0; j < node.animations.length; j++){
@@ -1589,4 +1553,4 @@ MySceneGraph.prototype.processNode = function(node, parTex, parAsp) { //asp de A
                 this.processNode(node.children[i], textura, material);
             this.scene.popMatrix();
         }
-}*/
+}
