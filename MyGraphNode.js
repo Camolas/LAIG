@@ -19,6 +19,8 @@ function MyGraphNode(graph, nodeID) {
 
     // animations
     this.animations = [];
+    
+    this.animationID = null;
 
     // texture ID.
     this.textureID = null ;

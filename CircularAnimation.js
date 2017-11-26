@@ -1,59 +1,46 @@
-/**
-* CircularAnimation
-* @constructor
-*/
-function CircularAnimation(scene, radius, initAng, angRot, velocity, center){
-	CGFobject.call(this,scene);
+class CircularAnimation extends Animation{
+    constructor(scene, id, speed, centerx, centery, centerz, radius, startAng, rotAng){
+        super(scene, id, speed);
+        this.centerx = centerx;
+        this.centery = centery;
+        this.centerz = centerz;
+        this.radius = radius;
+        this.startAng = startAng;
+        this.rotAng = rotAng;
 
-	degToRad = Math.PI /180;
+        //arc length
+        this.arcLength = this.radius * this.rotAng;
 
-	this.radius=radius;
-	this.velocity=velocity;
-	this.center=center
-	this.initAng=initAng*degToRad;
-	this.angRot=angRot*degToRad;
+        //animation time span
+        this.animationSpan = this.arcLength / this.speed;
 
-	var date = new Date();
-	this.initialTime = date.getTime();
-	this.lastTime = this.initialTime;
-	this.timeNeeded = 0;
+        //animation not started
+        this.currAng = 0;
+        this.currDist = 0;
+        this.finished = false;
+    }
 
-	this.w = this.velocity / this.radius;
+    display(){
+        //move scene to the center of the animation
+        this.scene.translate(centerx, centery, centerz);
 
-	this.timeNeeded = 2 * Math.PI * this.radius;
+        //move scene to the object getting animated
+        this.scene.translate(this.radius * Math.cos(this.startAng + this.currAng), 0, -this.radius * Math.sin(this.startAng + this.currAng));
+        this.scene.rotate(Math.PI + (this.startAng + this.currAng), 0, 1, 0);
+    }
 
-	console.log("radius: "+ this.radius);
-	console.log("velocity: "+ this.velocity);
-	console.log("center: "+ this.center);
-	console.log("initAng: "+ this.initAng);
-	console.log("angRot: "+ this.angRot);
-	console.log("initialTime: "+ this.initialTime);
-	console.log("w: "+ this.w);
-	console.log("timeNeeded: "+ this.timeNeeded);
+    update(dTime){
+        if(this.currAng < this.rotAng){
+            this.currDist += ((deltaTime / 1000) * this.arcLength) / (this.animationSpan / 1000);
+            this.currAng = this.currDist / this.radius;
+        }
+        else{
+            this.finished = true;
+        }
 
-};
-
-CircularAnimation.prototype = Object.create(CGFobject.prototype);
-CircularAnimation.prototype.constructor = CircularAnimation;
-
-
-CircularAnimation.prototype.display = function() {
-
-	var date = new Date();
-	if((date.getTime()-this.initialTime)< this.timeNeeded*1000){
-		var deltaTime = (date.getTime()-this.initialTime)/1000;
-
-		var delta = this.initAng + this.w * deltaTime;
-
-		this.scene.rotate(90, 0, 1, 0);
-		this.scene.translate(this.radius, 0 , 0);
-		this.scene.rotate(delta, 0, 1, 0);
-		this.scene.translate(this.center[0], this.center[1], this.center[2]);
-
-		this.lastTime=date.getTime();	
-	}
-}
-
-CircularAnimation.prototype.getType = function() {
-	return "circular";
+        if(finished){
+            this.currAng = 0;
+            this.currDist = 0;
+        }
+    }
 }

@@ -1196,7 +1196,9 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 
         var animationType = this.reader.getString(children[i], 'type');
         if (animationType == null )
-            return "no Type defined for animation";
+        	return "no type defined for animation";
+        if (animationType != "linear" && animationType != "circular" && animationType != "bezier" && animationType != "combo")
+        	return "unknown animation type";
 
         if(animationType == "linear"){
 
@@ -1215,7 +1217,50 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
             this.animations[animationID] = newAnimation;
 
         }
+
+        if(animationType == "circular"){
+        	var speed = this.reader.getFloat(children[i], 'speed');
+        	var centerX = this.reader.getString(children[i], 'centerx');
+        	var centerY = this.reader.getString(children[i], 'centery');
+        	var centerZ = this.reader.getString(children[i], 'centerz');
+        	var radius = this.reader.getString(children[i], 'radius');
+        	var startAng = this.reader.getString(children[i], 'startang');
+        	var rotAng = this.reader.getString(children[i], 'rotang');
+        	
+        	this.animations[animationID] = new CircularAnimation(this.scene, animationID, animationSpeed, centerX, centerY, centerZ, radius, startAng * DEGREE_TO_RAD, rotAng * DEGREE_TO_RAD);
+
+        }
+
+        if(animationType == "bezier"){
+        	var speed = this.reader.getFloat(children[i], 'speed');
+        	var bezierSpecs = children[i].children;
+        	var bezierControlPoints = [];
+        	var counter = 0;
+
+        	//getting animation control points (only 4 possible control points)
+        	for(var j = 0; j < bezierSpecs.length; j++){
+        		var controlPoint = [];
+
+        		var controlX = this.reader.getString(linearSpecs[j], 'xx');
+        		var controlY = this.reader.getString(linearSpecs[j], 'yy');
+        		var controlZ = this.reader.getString(linearSpecs[j], 'zz');
+
+        		controlPoint.push(controlX, controlY, controlZ);
+        		bezierControlPoints.push(controlPoint);
+        		counter++;
+        	}
+
+        	if(counter == 4){
+        		this.animations[animationID] = new BezierAnimation(this.scene, animationID, animationSpeed, bezierControlPoints);
+        	}
+        	else{
+        		return "A bezier animation only has 4 points!";
+        	}
+        }
+
     }
+
+    console.log("Parsed animations");
 }
 
 /**
