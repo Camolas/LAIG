@@ -31,7 +31,7 @@ function MyGraphNode(graph, nodeID) {
 
     this.animTime = 0;
     this.animIndex = 0;
-    this.animSec = 0;
+    this.animSec = 0;	//sections
 }
 
 /**
