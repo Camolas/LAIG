@@ -86,12 +86,16 @@
 
 
 <ANIMATIONS>
-	<ANIMATION id="test1" speed="1.0" type="linear">
+	<ANIMATION id="linear_test1" speed="1.0" type="linear">
 		<controlpoint xx="0" yy="0" zz="0" />
 		<controlpoint xx="5" yy="0" zz="0" />
 		<controlpoint xx="0" yy="0" zz="5" />
 		<controlpoint xx="0" yy="5" zz="0" />
 	</ANIMATION>
+	<ANIMATION id="circular_test2" speed="1.5" type="circular"
+			   centerx="0" centery="0" centerz="0"
+			   radius="1.366" startang="0" rotang="40" />
+	
 </ANIMATIONS>
 
 <!-- The leaves -->
@@ -110,7 +114,7 @@
         <TEXTURE id="null" />  
 		
 		<ANIMATIONREFS>
-			<ANIMATIONREF id="test1" />
+			<ANIMATIONREF id="linear_test1" />
 		</ANIMATIONREFS>
 
         <DESCENDANTS>
@@ -276,8 +280,12 @@
         <TEXTURE id="null" />  
 	
 		<ROTATION axis="y" angle="90" />
-		<TRANSLATION x="0" y="0" z="1.866" />		
-
+		<TRANSLATION x="0" y="0" z="1.866" />	
+	     
+		<ANIMATIONREFS>
+			<ANIMATIONREF id="circular_test2" />
+		</ANIMATIONREFS>
+	     
         <DESCENDANTS>
             <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
