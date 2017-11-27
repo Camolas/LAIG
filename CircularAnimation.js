@@ -12,7 +12,7 @@ class CircularAnimation extends Animation{
 
         this.arc = Math.abs(this.rotang - this.startang) * this.r;
 
-        //time span
+        //time span 
         this.span = this.arc/this.speed;
 
 
