@@ -85,6 +85,19 @@
 </MATERIALS>
 
 
+<ANIMATIONS>
+	<ANIMATION id="linear_test1" speed="1.0" type="linear">
+		<controlpoint xx="0" yy="0" zz="0" />
+		<controlpoint xx="5" yy="0" zz="0" />
+		<controlpoint xx="0" yy="0" zz="5" />
+		<controlpoint xx="0" yy="5" zz="0" />
+	</ANIMATION>
+	<ANIMATION id="circular_test2" speed="1.5" type="circular"
+			   centerx="0" centery="0" centerz="0"
+			   radius="1.366" startang="0" rotang="40" />
+	
+</ANIMATIONS>
+
 <!-- The leaves -->
 <LEAVES>
 </LEAVES>
@@ -99,6 +112,10 @@
     <NODE id="root">       
         <MATERIAL id="defaultMaterial" />         
         <TEXTURE id="null" />  
+		
+		<ANIMATIONREFS>
+			<ANIMATIONREF id="linear_test1" />
+		</ANIMATIONREFS>
 
         <DESCENDANTS>
 
@@ -110,41 +127,54 @@
 
     </NODE>
 
-    <!-- Central atom -->
-    <NODE id="pinkSphere">      
-        <MATERIAL id="null" />    
-        <TEXTURE id="plastic" />       			
+     <!-- Central atom -->
+    <NODE id="pinkSphere">
+        <MATERIAL id="null" />
+        <TEXTURE id="plastic" />
 
         <DESCENDANTS>
-			<LEAF  type="sphere" args="1 20 20" />        
+			<NODEREF id="ws3" />
+			<LEAF  type="sphere" args="1 20 20" />
 		</DESCENDANTS>
 
     </NODE>
-    
-    <!-- White atoms -->
-     <NODE id="whiteSpheres">       
-        <MATERIAL id="null" />    
-        <TEXTURE id="glass" />       			
+	
+	<NODE id="ws3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+		<TRANSLATION x="3.732" y="0" z="0" />
 
         <DESCENDANTS>
-            <NODEREF id="ws1" />     	    
-            <NODEREF id="ws2" />     	    
-            <NODEREF id="ws3" />     	   
-            <NODEREF id="ws4" />     
-			<NODEREF id="ws5" />  			
+            <LEAF  type="sphere" args="1 20 20" />
+        </DESCENDANTS>
+
+    </NODE>
+
+    <!-- White atoms -->
+     <NODE id="whiteSpheres">
+        <MATERIAL id="null" />
+        <TEXTURE id="glass" />
+
+        <DESCENDANTS>
+            <NODEREF id="ws1" />
+            <NODEREF id="ws2" />
+            <!--<NODEREF id="ws3" />-->
+            <NODEREF id="ws4" />
+			<NODEREF id="ws5" />
         </DESCENDANTS>
 
     </NODE>
 
     <!-- The 1st atom -->
-     <NODE id="ws1">       
-        <MATERIAL id="null" />    
-        <TEXTURE id="null" />  
+     <NODE id="ws1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
 
-		<TRANSLATION x="0" y="3.732" z="0" />		
+		<TRANSLATION x="0" y="3.732" z="0" />
 
         <DESCENDANTS>
-            <LEAF  type="sphere" args="1 20 20" />    
+            <LEAF  type="sphere" args="1 20 20" />
         </DESCENDANTS>
 
     </NODE>
@@ -163,7 +193,7 @@
     </NODE>
 	
 	    <!-- The 3rd atom -->
-     <NODE id="ws3">       
+    <!-- <NODE id="ws3">       
         <MATERIAL id="null" />    
         <TEXTURE id="null" />  
 
@@ -173,7 +203,7 @@
             <LEAF  type="sphere" args="1 20 20" />    
         </DESCENDANTS>
 
-    </NODE>
+    </NODE>-->
 	
 	    <!-- The 4th atom -->
      <NODE id="ws4">       
@@ -250,8 +280,12 @@
         <TEXTURE id="null" />  
 	
 		<ROTATION axis="y" angle="90" />
-		<TRANSLATION x="0" y="0" z="1.866" />		
-
+		<TRANSLATION x="0" y="0" z="1.866" />	
+	     
+		<ANIMATIONREFS>
+			<ANIMATIONREF id="circular_test2" />
+		</ANIMATIONREFS>
+	     
         <DESCENDANTS>
             <LEAF  type="cylinder" args="1 0.5 0.5 20 20 0 0" />    
         </DESCENDANTS>
