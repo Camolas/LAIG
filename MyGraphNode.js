@@ -59,11 +59,12 @@ MyGraphNode.prototype.updateAnimation = function(deltaTime){
         
         let newAnim = this.animations[this.animIndex];
        // console.log("before matrix11");
-       // console.log("Time: " + this.animTime);
-       // console.log("Section: " + this.animSec);
 
         this.animationMatrix = newAnim.getmatrix(this.animTime, this.animSec);
 
+        
+
+        
         if(this.animTime >= newAnim.getSpan()){
             this.animIndex++;
             this.animSec = 0;
