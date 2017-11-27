@@ -36,7 +36,7 @@ XMLscene.prototype.init = function(application) {
     this.shaders["Orange Pulse"] = new CGFshader(this.gl, "shaders/shaderOrange.vert", "shaders/shaderOrange.frag");
     this.shadersRefs.push("Orange Pulse");
     this.shaders["Orange Pulse"].setUniformsValues({selectedRed: 1.0, selectedGreen: 0.5, selectedBlue: 0.0});
-   // this.updateScalingFactor();
+    this.updateScalingFactor();
 
     this.initCameras();
 
@@ -58,7 +58,12 @@ XMLscene.prototype.init = function(application) {
     this.setUpdatePeriod(10);
     this.time = 0;
 }
-
+/*
+XMLscene.prototype.updateScalingFactor=function(v) {
+    this.testShaders[1].setUniformsValues({normScale: this.scaleFactor});
+    this.testShaders[2].setUniformsValues({normScale: this.scaleFactor});
+    this.testShaders[5].setUniformsValues({normScale: this.scaleFactor});
+}*/
 /**
  * Initializes the scene lights with the values read from the LSX file.
  */
@@ -170,7 +175,7 @@ XMLscene.prototype.display = function() {
             this.initialTime = currTime;
         }
         dT = (currTime - this.initialTime)/1000;
-        //this.updateScalingFactor(dT);
+        this.updateScalingFactor(dT);
 
         // Displays the scene.
         this.graph.displayScene();
@@ -189,3 +194,8 @@ XMLscene.prototype.update = function(currTime){
     for(var node in this.graph.nodes)
         this.graph.nodes[node].updateAnimation(timedif);
 }
+
+XMLscene.prototype.updateScalingFactor = function(date)
+{
+    this.shaders[this.currentShader].setUniformsValues({timeFactor: date});
+};

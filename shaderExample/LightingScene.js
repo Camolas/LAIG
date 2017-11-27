@@ -64,14 +64,14 @@ LightingScene.prototype.init = function (application) {
 		
 };
 
-LightingScene.prototype.updateWireframe=function(v)
+LightingScene.prototype.up
 {
 	if (v)
 		this.teapot.setLineMode();
 	else
 		this.teapot.setFillMode();
 		
-}
+}dateWireframe=function(v)
 
 LightingScene.prototype.updateScaleFactor=function(v)
 {
