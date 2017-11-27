@@ -8,6 +8,7 @@ class Animation{
 		this.scene = scene;
 		this.id = id;
 		this.span = 0;
+		this.finished = false;
 	}
 
 	getSpan(){
