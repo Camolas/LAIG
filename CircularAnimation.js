@@ -10,34 +10,31 @@ class CircularAnimation extends Animation{
         this.rotang = rotang;
         this.sectionTimes = [];
 
-        this.arc = this.r * this.rotang;
+        this.arc = Math.abs(this.rotang - this.startang) * this.r;
 
         //time span
-        this.animationSpan = this.arc/this.speed;
-        this.currentang = 0;
-        this.deltaang = 0;
+        this.span = this.arc/this.speed;
 
-        //angular velocity
-        this.vAngular = this.speed/this.r;
-        
+
         this.matrix = mat4.create();
-        this.sectionTimes.push(this.animationSpan);
+        this.sectionTimes.push(this.span);
     }
 
     getmatrix(time, section){
-        this.currentang = this.vAngular*time;
-        //finish animation when reached rotang
-        if(this.currentang >= this.rotang){
-            this.finished = true;
-        }
-        else{
-            mat4.identity(this.matrix);
-            var deltaang = this.startang + this.currentang;
-            mat4.translate(this.matrix, this.matrix, [this.X, this.Y, this.Z]);
-            mat4.rotate(this.matrix, this.matrix, deltaang, [0, 1, 0]);
-            mat4.translate(this.matrix, this.matrix, [this.r, 0, 0]);
-            mat4.rotate(this.matrix, this.matrix, Math.PI, [0, 1, 0]);
-            }
-        return this.matrix;
-    }
+    	var rotratio = time / this.span;
+
+		if(time <= this.span){
+
+			mat4.identity(this.matrix);
+			mat4.translate(this.matrix, this.matrix, [this.X, this.Y, this.Z]);
+			mat4.rotate(this.matrix, this.matrix, this.startang + rotratio*this.rotang, [0,1,0]);
+			mat4.translate(this.matrix, this.matrix, [this.r, 0, 0]);
+			if(this.rotang > this.startang)
+				mat4.rotate(this.matrix, this.matrix, Math.PI/2, [0,1,0]);
+			else if (this.rotang < this.startang)
+				mat4.rotate(this.matrix, this.matrix, -Math.PI/2, [0,1,0]);
+
+		}
+		return this.matrix;
+	}
 }
