@@ -26,6 +26,7 @@ class CircularAnimation extends Animation{
 		if(time <= this.span){
 
 			mat4.identity(this.matrix);
+			//console.warn('Teste');
 			mat4.translate(this.matrix, this.matrix, [this.X, this.Y, this.Z]);
 			mat4.rotate(this.matrix, this.matrix, this.startang + rotratio*this.rotang, [0,1,0]);
 			mat4.translate(this.matrix, this.matrix, [this.r, 0, 0]);

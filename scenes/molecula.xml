@@ -152,7 +152,7 @@
     </NODE>
 
     <!-- White atoms -->
-     <NODE id="whiteSpheres">
+     <NODE id="whiteSpheres" selectable="1">
         <MATERIAL id="null" />
         <TEXTURE id="glass" />
 
