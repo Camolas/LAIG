@@ -1,46 +1,42 @@
 class CircularAnimation extends Animation{
-    constructor(scene, id, speed, centerx, centery, centerz, radius, startAng, rotAng){
-        super(scene, id, speed);
-        this.centerx = centerx;
-        this.centery = centery;
-        this.centerz = centerz;
-        this.radius = radius;
-        this.startAng = startAng;
-        this.rotAng = rotAng;
+    constructor(scene, id, speed, X, Y, Z, r, startang, rotang){
+        super(scene, id, type);
+        this.speed = speed;
+        this.X = X;
+        this.Y = Y;
+        this.Z = Z;
+        this.r = r;
+        this.startang = startang;
+        this.rotang = rotang;
 
-        //arc length
-        this.arcLength = this.radius * this.rotAng;
+        this.arc = this.r * this.rotang;
 
-        //animation time span
-        this.animationSpan = this.arcLength / this.speed;
+        //time span
+        this.animationSpan = this.arc/this.speed;
+        this.currentang = 0;
+        this.deltaang = 0;
 
-        //animation not started
-        this.currAng = 0;
-        this.currDist = 0;
-        this.finished = false;
+        //angular velocity
+        this.vAngular = this.speed/this.r;
+        
+        this.matrix = mat4.create();
+        this.sectionTimes.push(this.animationSpan);
     }
 
-    display(){
-        //move scene to the center of the animation
-        this.scene.translate(centerx, centery, centerz);
-
-        //move scene to the object getting animated
-        this.scene.translate(this.radius * Math.cos(this.startAng + this.currAng), 0, -this.radius * Math.sin(this.startAng + this.currAng));
-        this.scene.rotate(Math.PI + (this.startAng + this.currAng), 0, 1, 0);
-    }
-
-    update(dTime){
-        if(this.currAng < this.rotAng){
-            this.currDist += ((deltaTime / 1000) * this.arcLength) / (this.animationSpan / 1000);
-            this.currAng = this.currDist / this.radius;
-        }
-        else{
+    getmatrix(time, section){
+        this.currentang = this.vAngular*time;
+        //finish animation when reached rotang
+        if(this.currentang >= this.rotang){
             this.finished = true;
         }
-
-        if(finished){
-            this.currAng = 0;
-            this.currDist = 0;
-        }
+        else{
+            mat4.identity(this.matrix);
+            var deltaang = this.startang + this.currentang;
+            mat4.translate(this.matrix, this.matrix, [this.X, this.Y, this.Z]);
+            mat4.rotate(this.matrix, this.matrix, deltaang, [0, 1, 0]);
+            mat4.translate(this.matrix, this.matrix, [this.r, 0, 0]);
+            mat4.rotate(this.matrix, this.matrix, Math.PI, [0, 1, 0]);
+            }
+        return this.matrix;
     }
 }

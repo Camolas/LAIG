@@ -1220,14 +1220,14 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
 
         if(animationType == "circular"){
         	var speed = this.reader.getFloat(children[i], 'speed');
-        	var centerX = this.reader.getString(children[i], 'centerx');
-        	var centerY = this.reader.getString(children[i], 'centery');
-        	var centerZ = this.reader.getString(children[i], 'centerz');
-        	var radius = this.reader.getString(children[i], 'radius');
-        	var startAng = this.reader.getString(children[i], 'startang');
-        	var rotAng = this.reader.getString(children[i], 'rotang');
+        	var X = this.reader.getString(children[i], 'centerx');
+        	var Y = this.reader.getString(children[i], 'centery');
+        	var Z = this.reader.getString(children[i], 'centerz');
+        	var r = this.reader.getString(children[i], 'radius');
+        	var startang = this.reader.getString(children[i], 'startang');
+        	var rotang = this.reader.getString(children[i], 'rotang');
         	
-        	this.animations[animationID] = new CircularAnimation(this.scene, animationID, animationSpeed, centerX, centerY, centerZ, radius, startAng * DEGREE_TO_RAD, rotAng * DEGREE_TO_RAD);
+        	this.animations[animationID] = new CircularAnimation(this.scene, animationID, speed, X, Y, Z, r, startang*DEGREE_TO_RAD, rotang*DEGREE_TO_RAD);
 
         }
 
