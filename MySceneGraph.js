@@ -1305,7 +1305,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             this.nodes[nodeID] = new MyGraphNode(this,nodeID, selectable);
 
             if (selectable)
-            this.selectableNodes.push(nodeID);
+                this.selectableNodes.push(nodeID);
 
             console.warn(this.selectableNodes);
 

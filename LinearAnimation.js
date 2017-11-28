@@ -43,7 +43,7 @@ class LinearAnimation extends Animation{
 	}
 
 	getmatrix(time, section){
-		console.log("in function");
+		//console.log("in function");
 	       var sectionTime = time;
 	        
 	       if (section >= 1) {

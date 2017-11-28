@@ -54,8 +54,3 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     this.shadersGroup.add(this.scene, "currentSelectable", nodes).name("Selectable Node");
  };
 
-MyInterface.prototype.addShadersDropdown = function(shaders) {
-    this.shadersGroup.add(this.scene, "currentShader", shaders).name("Special Shader");
-};
-
-
