@@ -1603,7 +1603,11 @@ MySceneGraph.prototype.processNode = function(node, texID, matID) {
 	//console.warn("display leave");
 	    node.leaves[j].display();		
 	  }		
-	  this.scene.popMatrix();		
+	  this.scene.popMatrix();
+
+    if (this.scene.currentSelectable == node.nodeID) {
+        this.scene.setActiveShader(this.scene.shaders[this.scene.currentShader]);
+    }
  
  /*for(var i = 0; i < node.children.length; i++){
             this.scene.pushMatrix();
